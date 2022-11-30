@@ -1,58 +1,58 @@
 #Лабораторная работа №2
 #Выполнил студент группы ИСТбд-41
 #Калашников Михаил Андреевич
-  import numpy as np
-  import matplotlib.pyplot as mpl
+import numpy as np
+import matplotlib.pyplot as mpl
 #Ввод значений N и K
-  N=int(input("Введите четное N,которое >3: "))
-  K=int(input("Введите K: "))
+N=int(input("Введите четное N,которое >3: "))
+K=int(input("Введите K: "))
 #Создание матриц
-  matricaB=np.random.randint(-10,10,(N//2,N//2))
-  matricaC=np.random.randint(-10,10,(N//2,N//2))
-  matricaD=np.random.randint(-10,10,(N//2,N//2))
-  matricaE=np.random.randint(-10,10,(N//2,N//2))
-    matricaA=np.array([[matricaE, matricaB],[matricaD, matricaC]])
-      matricaF=matricaA
-arrNat=np.array([-7,-5,-3,-2,2,3,5,7])
+matricaB=np.random.randint(-10,10,(N//2,N//2))
+matricaC=np.random.randint(-10,10,(N//2,N//2))
+matricaD=np.random.randint(-10,10,(N//2,N//2))
+matricaE=np.random.randint(-10,10,(N//2,N//2))
+matricaA=np.array([[matricaE, matricaB],[matricaD, matricaC]])
+matricaF=matricaA
+#массив
+arrProst=np.array([-7,-5,-3,-2,2,3,5,7])
 #Вывод матриц
-  print("Матрица "B"")
-   print(matricaB)
-  print("Матрица "C"")
-    print(matricaC)
-  print("Матрица "D"")
-   print(matricaD)
-  print("Матрица "E"")
-   print(matricaE)
-  print("Матрица "A"")
-   print(matricaA)
-countNatC=0
+print("Матрица B")
+print(matricaB)
+print("Матрица C")
+print(matricaC)
+print("Матрица D")
+print(matricaD)
+print("Матрица E")
+print(matricaE)
+print("Матрица A")
+print(matricaA)
+countProstC=0
 flag=0
 #Просчитываем количество натуральных чисел в нечетных столбцах матрицы "С"
 for row in range(0, N//2):
     for col in range(1, N//2, 2):
-        for nat in range(0, 7):
-            if matricaC[row][col] == arrNat[nat]:
+        for prst in range(0, 7):
+            if matricaC[row][col] == arrProst[prst]:
                 flag=1
         if flag == 1:
-            countNatC+=1
+            countProstC+=1
             flag=0
-print("Количество простых чисел в нечетных столбцах: ", countNatC)
-
-countZeroC=0
-#Считаем количество нулевых элементов в четных строках matrС3
+print("В нечетных столбцах матрицы, находится колличество простых числе, равняющееся ", countProstC)
+countNullC=0
+#Просчитываем количество нулевых элементов в четных строках матрицы "С"
 for row in range(0, N//2, 2):
     for col in range(0, N//2):
         if matricaC[row][col] == 0:
-            countZeroC+=1
-print("Количество нулевых элементов в четных строках: ", countZeroC)
-
+            countNullC+=1
+print("В четных строках матриц, находится колличество нулевых числев, равняющееся: ", countNullC)
 cont=0
 r=N//2-1
 c=N//2-1
-print("Матрица F перед преобразованием:")
+#Работа с матрицей F(в зависимости от соотношения простых чисел и нулевых элементов)
+print("Начальнаое состояние матрицы "F"")
 print(matricaF)
 
-if countNatC > countZeroC:
+if countProstC > countNullC:
     print("Меняем E и C симметрично")
     for row in range(0, N//2):
         for col in range(0, N//2):
