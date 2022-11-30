@@ -71,7 +71,7 @@ else:
             matricaF[0][1][row][col]=matricaF[1][1][row][col]
             matricaF[1][1][row][col]=cont
 #Показ преобразованной матрицы F
-print("Матрица F после преобразования:")
+print("Конечное состояние матрицы F:")
 print(matricaF)
 #Работа с подматрицами A
 pod_matrixA1=np.concatenate((matricaE,matricaB), axis=1)
