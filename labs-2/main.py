@@ -49,11 +49,11 @@ cont=0
 r=N//2-1
 c=N//2-1
 #Работа с матрицей F(в зависимости от соотношения простых чисел и нулевых элементов)
-print("Начальнаое состояние матрицы "F"")
+print("Начальнаое состояние матрицы F")
 print(matricaF)
-
+#Если простых больше, чем нулевых
 if countProstC > countNullC:
-    print("Меняем E и C симметрично")
+    print("Симметричная замена Е и С")
     for row in range(0, N//2):
         for col in range(0, N//2):
             cont = matricaF[0][0][row][col]
@@ -62,69 +62,70 @@ if countProstC > countNullC:
             r -= 1
         c -= 1
         r = N//2-1
+#Если простых меньше, чем нулевых
 else:
-    print("Меняем B и C несимметрично")
+    print("Нессимнтричная замена В и С")
     for row in range(0, N//2):
         for col in range(0, N//2):
             cont=matricaF[0][1][row][col]
             matricaF[0][1][row][col]=matricaF[1][1][row][col]
             matricaF[1][1][row][col]=cont
-
+#Показ преобразованной матрицы F
 print("Матрица F после преобразования:")
 print(matricaF)
-
-#Объединение подматриц A в одну
+#Работа с подматрицами A
 pod_matrixA1=np.concatenate((matricaE,matricaB), axis=1)
 pod_matrixA2=np.concatenate((matricaD,matricaC), axis=1)
 pod_matrixA=np.concatenate((pod_matrixA1, pod_matrixA2), axis=0)
-
-#Объединение подматриц F в одну
+#Работа с подматрицами F
 pod_matrixF1=np.concatenate((matricaF[0][0],matricaF[0][1]), axis=1)
 pod_matrixF2=np.concatenate((matricaF[1][0],matricaF[1][1]), axis=1)
 pod_matrixF=np.concatenate((pod_matrixF1, pod_matrixF2), axis=0)
-
-detA=np.linalg.det(pod_matrixA)
-print("Определитель матрицы А:", detA)
-sumDiagF=np.trace(matricaF[0][0])+np.trace(matricaF[1][1])
-print("Сумма диагонали матрицы F:", sumDiagF)
+#Вычисление определителя матрицы А
+opredA=np.linalg.det(pod_matrixA)
+print("Вычисленный определитель матрицы А:", opredA)
+#Вычисление суммы диагональных элементов матрицы F
+sumDiagonalF=np.trace(matricaF[0][0])+np.trace(matricaF[1][1])
+print("Сумма диагональных элементов матрицы F:", sumDiagonalF)
+#Транспонирование матрицы A
 matricaAT = np.transpose(pod_matrixA)
 print("Транспонированная матрица А:", matricaAT)
-
-if detA>sumDiagF:
+#По итогу сравнения определителя и суммы диагональных элементов, выбираем способ дальнейшего вычисления выражения
+if opredA>sumDiagonalF:
     #Вычисляем A^(-1)*A^T-K*F
     matricaAInv=np.linalg.inv(pod_matrixA)
     out=matricaAInv*matricaAT-K*pod_matrixF
-    print("Определитель больше суммы, результат выражения A^(-1)*A^T-K*F: ", out)
+    print("Определитель матрицы А больше суммы дагональных эллементов матицы F, результат выражения A^(-1)*A^T-K*F: ", out)
 else:
     #Вычисляем (A^T+G^(-1)-F^(-1))*K
     matricaG=np.tril(pod_matrixA)
     matricaGInv=np.linalg.inv(matricaG)
     matricaFInv=np.linalg.inv(pod_matrixF)
     out=(matricaAT+matricaGInv-matricaFInv)*K
-    print("Определитель меньше или равен сумме, результат выражения (A^T+G^(-1)-F^(-1))*K: ", out)
-
+    print("Определитель матрицы А меньше суммы дагональных эллементов матицы F, результат выражения (A^T+G^(-1)-F^(-1))*K: ", out)
+#График значений строк матрицы F
 print("График значений строк матрицы F")
 x = np.linspace(0, N, N)
 y = np.asarray(pod_matrixF)
 mpl.plot(x, y)
 mpl.title("График значений строк матрицы F")
 mpl.show()
-
+#Гистограмма распределения значений матрицы F
 print("Гистограмма распределения значений матрицы F")
 x = np.linspace(-10, 10, 21)
 y = np.asarray(pod_matrixF).reshape(-1)
 mpl.hist(y, x, rwidth=0.9)
 mpl.title("Гистограмма распределения значений матрицы F")
 mpl.show()
-
-print("Диаграмма распределения значений подматрицы B матрицы F")
+#Диаграмма распределения значений матрицы F
+print("Диаграмма распределения значений матрицы F")
 y = np.asarray(matricaF[0][1]).reshape(-1)
 #Считаем количество значений
 arrCount=np.zeros(21)
 for i in range(0,len(y)):
     arrCount[y[i]+10]+=1
 chisls=[-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10]
-#Отсеиваем нулевые значения
+#Просеиваем нулевые
 chislsB = [value for value in chisls if arrCount[value+10]!=0]
 valuesB = [value for value in arrCount if value!=0]
 mpl.pie(valuesB,labels=chislsB)
