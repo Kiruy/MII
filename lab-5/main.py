@@ -41,7 +41,7 @@ def knn_METHOD(KNN_X_Train, KNN_X_Test, KNN_Y_Train, KNN_Y_Test):
     plt.pie(Graph_V1['% observations'], labels=Graph_V1['% observations'].index, autopct='%.0f%%')
     plt.title('Массив тестовых значений')
     plt.show()
-# Рисует предказанные значения
+# Рисует предсказанные значения
     Graph_V2 = pd.crosstab(index=Y_nachal_KNN, columns='% observations')
     plt.pie(Graph_V2['% observations'], labels=Graph_V2['% observations'].index, autopct='%.0f%%')
     plt.title('Массив прогнозируемых значений')
