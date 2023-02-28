@@ -94,7 +94,7 @@ def LogisticRegression_METHOD(X_train, y_train, X_test, y_test):
     Vozmozhnaya_model = model.predict(Logistic_v2)
 # Вывод метрик классификации
 # Вывод матрицы ошибок для оценки точности
-# ВЫвод точности метода логистической регрессии
+# Вывод точности метода логистической регрессии
     print('Основные метрики классификации\n', classification_report(y_test, Vozmozhnaya_model, zero_division=0),
           '\nМатрица ошибок для оценки точности', confusion_matrix(y_test, Vozmozhnaya_model), '\nСчет X-train с Y-train: ',
           model.score(Logistic_v1, y_train), '\nСчет X-test  с Y-test  : ', model.score(Logistic_v2, y_test),
